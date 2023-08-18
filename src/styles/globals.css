@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: Inter, system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .button {
+    @apply p-2 text-white text-sm md:text-sm bg-bvnk_blue-light border border-bvnk_blue-light rounded-md 
+    focus:outline-none focus:ring-2 focus:ring-bvnk_blue-dark
+    active:bg-bvnk_blue-dark;
+  }
+  .dropdown-option {
+    @apply block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white;
+  }
+}
