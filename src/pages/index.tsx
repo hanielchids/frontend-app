@@ -9,6 +9,12 @@ export default function Home() {
     setOptionsVisible(!isOptionsVisible);
   };
 
+  const [selected, setSelected] = useState("");
+
+  const handleSelected = (event: any) => {
+    setSelected(event.target.value);
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       {/* Box component */}
@@ -42,8 +48,41 @@ export default function Home() {
           <div className="text-bvnk_text-dark text-sm font-medium leading-tight">
             Pay with
           </div>
-          <button
-            onClick={toggleDropdownOptions}
+
+          <div className="inline-block relative w-full">
+            <select
+              name="currency"
+              value={selected}
+              onChange={handleSelected}
+              className="block appearance-none w-full h-14 p-4 bg-white border border-bvnk_gray-20 rounded leading-tight "
+            >
+              <option value="" className="font-medium">
+                Select Currency
+              </option>
+              <option value="a">Option 1</option>
+              <option value="b">Option 2</option>
+              <option value="c">Option 3</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg
+                width="8"
+                height="12"
+                viewBox="0 0 8 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M4 12L0 8H8L4 12ZM4 0L8 4H0L4 0Z"
+                  fill="#0A1628"
+                />
+              </svg>
+            </div>
+          </div>
+
+          {/* <select
+            // onClick={toggleDropdownOptions}
             className="self-stretch h-14 p-4 bg-white rounded border border-bvnk_gray-200 justify-between items-center gap-3 inline-flex"
           >
             <span className="select-none font-medium">Select Currency</span>
@@ -62,7 +101,7 @@ export default function Home() {
                 fill="#0A1628"
               />
             </svg>
-          </button>
+          </select>
 
           <div
             id="options"
@@ -70,19 +109,30 @@ export default function Home() {
               isOptionsVisible ? "w-full z-30" : "hidden"
             } py-2 mt-0 bg-white rounded-lg shadow-xl`}
           >
-            <a href="#" className="dropdown-option">
+            <option
+              // href="#"
+              className="dropdown-option"
+            >
               Item 1
-            </a>
-            <a href="#" className="dropdown-option">
+            </option>
+            <option
+              // href="#"
+              className="dropdown-option"
+            >
               Item 2
-            </a>
-            <a href="#" className="dropdown-option">
+            </option>
+            <option
+              // href="#"
+              className="dropdown-option"
+            >
               Item 3
-            </a>
-          </div>
+            </option>
+          </div> */}
         </div>
 
-        {/* Currency Dropdown */}
+        {/*End of Currency Dropdown */}
+
+        {/* amount due section */}
 
         <div className="h-[95px] flex-col justify-start items-start gap-3 flex">
           <div className="w-[416px] h-px relative bg-slate-200" />
@@ -108,6 +158,7 @@ export default function Home() {
         <div className="w-[416px] justify-center items-center inline-flex">
           <button className="button w-[416px]">Confirm</button>
         </div>
+        {/*end ofamount due section */}
       </div>
       {/*  */}
 
@@ -177,6 +228,47 @@ export default function Home() {
         </div>
       </div>
       {/* qr code section */}
+
+      {/* expired container */}
+      <div className="flex justify-center h-[307px] items-center w-[460px] my-5 bg-white rounded-[10px]">
+        <div className="text-center">
+          <div className="flex-col justify-center items-center">
+            <div className="flex justify-center items-center">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="48" height="48" rx="24" fill="white" />
+                <g clip-path="url(#clip0_8_108)">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M24 0C10.7664 0 0 10.7664 0 24C0 37.2336 10.7664 48 24 48C37.2336 48 48 37.2336 48 24C48 10.7664 37.2336 0 24 0ZM21.6 14.4C21.6 13.0745 22.6745 12 24 12C25.3255 12 26.4 13.0745 26.4 14.4V24C26.4 25.3255 25.3255 26.4 24 26.4C22.6745 26.4 21.6 25.3255 21.6 24V14.4ZM24 36C25.3255 36 26.4 34.9255 26.4 33.6C26.4 32.2745 25.3255 31.2 24 31.2C22.6745 31.2 21.6 32.2745 21.6 33.6C21.6 34.9255 22.6745 36 24 36Z"
+                    fill="#FF785F"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_8_108">
+                    <rect width="48" height="48" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+
+            <div className="text-center text-slate-900 text-xl font-semibold leading-7 my-5">
+              Payment details expired
+            </div>
+
+            <div className="self-stretch text-center text-gray-500 text-[15px] font-normal leading-normal whitespace-normal">
+              The payment details for your transaction have expired.
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* expired container */}
     </main>
   );
 }
