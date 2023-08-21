@@ -17,4 +17,22 @@
   .dropdown-option {
     @apply block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white;
   }
+  .quote-container {
+    @apply w-[460px] p-[25px] bg-white rounded-[10px] flex-col justify-start items-center gap-[25px] inline-flex;
+  }
+  .p-text {
+    @apply text-bvnk_text-gray text-sm font-normal leading-snug;
+  }
+  .h-text {
+    @apply text-center text-bvnk_text-dark text-xl font-medium leading-7;
+  }
+  .table-text {
+    @apply grow shrink basis-0 text-bvnk_text-gray text-sm font-normal leading-snug;
+  }
+  .table-text-r {
+    @apply text-bvnk_text-dark text-sm font-medium leading-snug;
+  }
+  .table-divider {
+    @apply w-full h-px relative bg-slate-200;
+  }
 }
