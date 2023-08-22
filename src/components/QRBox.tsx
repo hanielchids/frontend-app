@@ -2,6 +2,7 @@ import React from "react";
 import CopyButton from "./CopyButton";
 import Countdown from "./Countdown";
 import CryptoQRCode from "./CryptoQRCode";
+import TruncateText from "./TruncateText";
 
 interface QRBoxProps {
   apiData: any;
@@ -40,7 +41,9 @@ function QRBox(props: QRBoxProps) {
           <div className="table-divider" />
           <div className="self-stretch justify-start items-center gap-4 inline-flex">
             <div className="table-text">BTC address</div>
-            <div className="table-text-r">{address?.address}</div>
+            <div className="table-text-r">
+              <TruncateText text={address?.address} maxLength={15} />
+            </div>
             <CopyButton textToCopy={`${address?.address}`} />
           </div>
           <div className="self-stretch h-[180px] pt-3 bg-white flex-col justify-center items-center gap-3 flex">

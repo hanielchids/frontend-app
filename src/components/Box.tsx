@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrency } from "../store/currencySlice";
 import { setLoading, unsetLoading } from "@/store/isLoadingSlice";
 import Countdown from "./Countdown";
+import { useRouter } from "next/router";
 
 interface BoxProps {
   apiData: any;
@@ -16,6 +17,8 @@ function Box(props: BoxProps) {
   const isLoading = useSelector((state: any) => state.isLoading);
   const [timerKey, setTimerKey] = useState(0);
   const dispatch = useDispatch();
+  const { merchantDisplayName, displayCurrency, reference } = props.apiData;
+  const { paidCurrency, acceptanceExpiryDate } = props.payData;
 
   const handleSelected = (event: any) => {
     const newSelected = event.target.value;
@@ -39,8 +42,6 @@ function Box(props: BoxProps) {
     return () => clearTimeout(timer);
   }, [selected]);
 
-  const { merchantDisplayName, displayCurrency, reference } = props.apiData;
-  const { paidCurrency, acceptanceExpiryDate } = props.payData;
   return (
     <div>
       {/* Box component */}
