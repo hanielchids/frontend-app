@@ -1,70 +1,126 @@
-import Box from "@/components/Box";
 import CustomSelect from "@/components/Dropdown";
 import ExpiredBox from "@/components/Expiredbox";
-import QRBox from "@/components/QRBox";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { GetServerSideProps } from "next";
 
 // redux stuff
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 import { RootState } from "../store/store";
+import { setLoading, unsetLoading } from "../store/isLoadingSlice";
+
+// Nextjs stuff
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Home(props: any) {
-  const [apiData, setApiData] = useState("");
-  const [payData, setPayData] = useState("");
+  // const [apiData, setApiData] = useState("");
+  // const [payData, setPayData] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/quote_onload");
-        if (!response.ok) {
-          throw new Error(`API request failed with status: ${response.status}`);
-        }
-        const data = await response.json();
+  // const isLoading = useSelector((state: RootState) => state.isLoading);
+  // const dispatch = useDispatch();
 
-        console.log("returned data is: ", data);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch("/api/quote_onload");
+  //       if (!response.ok) {
+  //         throw new Error(`API request failed with status: ${response.status}`);
+  //       }
+  //       const data = await response.json();
 
-        setApiData(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  //       console.log("returned data is: ", data);
 
-    fetchData();
-  }, []);
+  //       setApiData(data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-  const selectedCurrency = useSelector(
-    (state: RootState) => state.currency.selectedCurrency
-  );
+  //   fetchData();
+  // }, []);
 
-  useEffect(() => {
-    const currencyData = async () => {
-      try {
-        const response = await fetch(
-          `/api/select_currency?currency=${selectedCurrency}`
-        );
-        if (!response.ok) {
-          throw new Error(`API request failed with status: ${response.status}`);
-        }
-        const data = await response.json();
+  // const selectedCurrency = useSelector(
+  //   (state: RootState) => state.currency.selectedCurrency
+  // );
 
-        console.log("CURRENCY data is: ", data);
+  // useEffect(() => {
+  //   const currencyData = async () => {
+  //     try {
+  //       if (selectedCurrency) {
+  //         const response = await fetch(
+  //           `/api/select_currency?currency=${selectedCurrency}`
+  //         );
+  //         if (!response.ok) {
+  //           throw new Error(
+  //             `API request failed with status: ${response.status}`
+  //           );
+  //         }
+  //         const data = await response.json();
 
-        setPayData(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  //         console.log("CURRENCY data is: ", data);
 
-    currencyData();
-  }, [selectedCurrency]);
+  //         setPayData(data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+
+  //   currencyData();
+  // }, [selectedCurrency]);
+
+  // Callback function to refresh payData
+  // const refreshPayData = async () => {
+  //   dispatch(setLoading());
+  //   try {
+  //     if (selectedCurrency) {
+  //       const response = await fetch(
+  //         `/api/select_currency?currency=${selectedCurrency}`
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error(`API request failed with status: ${response.status}`);
+  //       }
+  //       const data = await response.json();
+  //       setPayData(data);
+  //     }
+
+  //     dispatch(unsetLoading());
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     dispatch(unsetLoading());
+  //   }
+  // };
+
+  const router = useRouter();
+
+  const uuid = "a3cafcba-597a-4e55-a43b-189b6624e10b";
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Box apiData={apiData} payData={payData} />
-
-      <QRBox />
+      <Link href={`/payin/${uuid}`}>Go to Accept Quote page</Link>
       <ExpiredBox />
     </main>
   );
 }
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   try {
+//     const response = await fetch("/api/quote_onload");
+//     if (!response.ok) {
+//       throw new Error(`API request failed with status: ${response.status}`);
+//     }
+//     const data = await response.json();
+
+//     return {
+//       props: { apiData: data },
+//     };
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+
+//     return {
+//       props: { apiData: null }, // Handle the error case as needed
+//     };
+//   }
+// };
