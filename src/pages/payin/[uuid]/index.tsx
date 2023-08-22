@@ -89,8 +89,13 @@ function AcceptQuote() {
       if (!response.ok) {
         throw new Error(`API request failed with status: ${response.status}`);
       }
+      const data = await response.json();
 
-      router.replace(`${uuid}/pay`);
+      if (data?.quoteStatus === "ACCEPTED") {
+        router.replace(`${uuid}/pay`);
+      } else {
+        router.replace(router.asPath);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
