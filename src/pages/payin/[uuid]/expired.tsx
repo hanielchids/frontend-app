@@ -6,7 +6,6 @@ function Expired() {
   useEffect(() => {
     const preventNavigation = (e: BeforeUnloadEvent) => {
       e.preventDefault();
-      e.returnValue = "";
     };
 
     window.addEventListener("beforeunload", preventNavigation);

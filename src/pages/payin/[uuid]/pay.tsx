@@ -30,20 +30,20 @@ function Pay() {
   }, []);
 
   useEffect(() => {
-    const preventBackNavigation = () => {
-      history.pushState(null, document.title, location.href);
+    const preventNavigation = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
     };
 
-    window.addEventListener("popstate", preventBackNavigation);
+    window.addEventListener("beforeunload", preventNavigation);
 
     return () => {
-      window.removeEventListener("popstate", preventBackNavigation);
+      window.removeEventListener("beforeunload", preventNavigation);
     };
   }, []);
 
   const handleRedirect = () => {
     setTimerKey((prevKey) => prevKey + 1);
-    router.replace(`${uuid}/expired`);
+    router.replace(`/payin/[uuid]/expired`, `/payin/${uuid}/expired`);
   };
 
   return (
