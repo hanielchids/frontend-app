@@ -1,11 +1,11 @@
-// store.js
 import { configureStore } from "@reduxjs/toolkit";
 import currencyReducer from "./currencySlice";
+import isLoadingReducer from "./isLoadingSlice";
 
 const store = configureStore({
   reducer: {
     currency: currencyReducer,
-    // other reducers...
+    isLoading: isLoadingReducer,
   },
 });
 
