@@ -1,28 +1,46 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrency } from "../store/currencySlice";
+import { setLoading, unsetLoading } from "@/store/isLoadingSlice";
+import Countdown from "./Countdown";
 
 interface BoxProps {
   apiData: any;
   payData: any;
+  refreshPayData: () => void;
+  handleConfirm: () => void;
 }
 
 function Box(props: BoxProps) {
   const [selected, setSelected] = useState("");
+  const isLoading = useSelector((state: any) => state.isLoading);
+  const [timerKey, setTimerKey] = useState(0);
   const dispatch = useDispatch();
 
   const handleSelected = (event: any) => {
-    setSelected(event.target.value);
-    dispatch(setCurrency(selected));
-
-    console.log("currency value is: ", selected);
+    const newSelected = event.target.value;
+    setSelected(newSelected);
+    dispatch(setCurrency(newSelected));
   };
 
-  console.log("currency props: ", props.payData);
+  const timeExpired = () => {
+    dispatch(setLoading());
+    props.refreshPayData();
+    setTimerKey((prevKey) => prevKey + 1);
+  };
+
+  useEffect(() => {
+    // Simulate loading delay with setTimeout
+    dispatch(setLoading());
+    const timer = setTimeout(() => {
+      dispatch(unsetLoading());
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [selected]);
 
   const { merchantDisplayName, displayCurrency, reference } = props.apiData;
   const { paidCurrency, acceptanceExpiryDate } = props.payData;
-
   return (
     <div>
       {/* Box component */}
@@ -96,18 +114,163 @@ function Box(props: BoxProps) {
               <div className="self-stretch justify-start items-center gap-1 inline-flex">
                 <div className="table-text">Amount due</div>
                 <div className="table-text-r">
-                  {paidCurrency?.amount} {paidCurrency?.currency}
+                  {isLoading ? (
+                    <svg
+                      className="w-8 h-8 animate-spin text-indigo-400"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 4.75V6.25"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M17.1266 6.87347L16.0659 7.93413"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M19.25 12L17.75 12"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M17.1266 17.1265L16.0659 16.0659"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M12 17.75V19.25"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M7.9342 16.0659L6.87354 17.1265"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M6.25 12L4.75 12"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M7.9342 7.93413L6.87354 6.87347"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </svg>
+                  ) : (
+                    <>
+                      {paidCurrency?.amount} {paidCurrency?.currency}{" "}
+                    </>
+                  )}
                 </div>
               </div>
               <div className="table-divider" />
               <div className="self-stretch justify-start items-center gap-1 inline-flex">
                 <div className="table-text">Quoted price expires in</div>
-                <div className="table-text-r">00:00:11</div>
+                <div className="table-text-r">
+                  {isLoading ? (
+                    <svg
+                      className="w-8 h-8 animate-spin text-indigo-400"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 4.75V6.25"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M17.1266 6.87347L16.0659 7.93413"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M19.25 12L17.75 12"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M17.1266 17.1265L16.0659 16.0659"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M12 17.75V19.25"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M7.9342 16.0659L6.87354 17.1265"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M6.25 12L4.75 12"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                      <path
+                        d="M7.9342 7.93413L6.87354 6.87347"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </svg>
+                  ) : (
+                    <Countdown
+                      targetTimestamp={acceptanceExpiryDate}
+                      onTimerExpired={timeExpired}
+                      key={timerKey}
+                    />
+                  )}
+                </div>
               </div>
               <div className="w-[416px] h-px relative bg-slate-200" />
             </div>
             <div className="w-full justify-center items-center inline-flex">
-              <button className="button w-[416px]">Confirm</button>
+              <button
+                className="button w-[416px]"
+                onClick={props.handleConfirm}
+              >
+                Confirm
+              </button>
             </div>
             {/*end ofamount due section */}
           </>
