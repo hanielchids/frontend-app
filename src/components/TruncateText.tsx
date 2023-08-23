@@ -26,7 +26,7 @@ function TruncateText(props: TruncateTextProps) {
 
   const truncatedText = truncateMiddle(text, maxLength);
 
-  return <div className="text-red">{truncatedText}</div>;
+  return <div>{truncatedText}</div>;
 }
 
 export default TruncateText;
