@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 export default function Home() {
-  const uuid = "9957f15d-1951-42b6-afdf-111636e3ed21";
+  const uuid = "1f69f65a-5930-4ca3-b309-fb251c3a76bc";
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

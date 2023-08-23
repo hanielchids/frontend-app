@@ -5,21 +5,21 @@ interface CountdownProps {
   onTimerExpired: () => void;
 }
 
-function Countdown(props: CountdownProps) {
+function Countdown({ targetTimestamp, onTimerExpired }: CountdownProps) {
   const calculateTimeRemaining = () => {
     const currentTime = new Date().getTime();
-    const timeRemaining = props.targetTimestamp - currentTime;
+    const timeRemaining = targetTimestamp - currentTime;
     return timeRemaining > 0 ? timeRemaining : 0;
   };
 
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
-  const targetTimestampRef = useRef(props.targetTimestamp);
+  const targetTimestampRef = useRef(targetTimestamp);
 
   useEffect(() => {
-    targetTimestampRef.current = props.targetTimestamp;
+    targetTimestampRef.current = targetTimestamp;
     const remainingTime = calculateTimeRemaining();
     setTimeRemaining(remainingTime);
-  }, [props.targetTimestamp]);
+  }, [targetTimestamp]);
 
   useEffect(() => {
     if (timeRemaining === null) return;
@@ -29,7 +29,7 @@ function Countdown(props: CountdownProps) {
       setTimeRemaining(remainingTime);
 
       if (remainingTime <= 0) {
-        props.onTimerExpired();
+        onTimerExpired();
         clearInterval(timer);
       }
     }, 1000);

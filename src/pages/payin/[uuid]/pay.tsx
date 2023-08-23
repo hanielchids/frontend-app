@@ -1,10 +1,13 @@
-import InfoBlock from "@/components/InfoBlock";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
 import PaymentContainer from "@/components/PaymentContainer";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import InfoBlock from "@/components/InfoBlock";
 
 function Pay() {
+  const router = useRouter();
+  const { uuid } = router.query;
+
   const [dataLoaded, setDataLoaded] = useState(false);
   const [apiData, setApiData] = useState({
     paidCurrency: {
@@ -17,8 +20,6 @@ function Pay() {
     expiryDate: null,
   });
   const [timerKey, setTimerKey] = useState(0);
-  const router = useRouter();
-  const { uuid } = router.query;
   const [expireStatus, setExpireStatus] = useState("");
 
   useEffect(() => {
@@ -59,13 +60,17 @@ function Pay() {
     };
   }, []);
 
-  const handleRedirect = () => {
-    setTimerKey((prevKey) => prevKey + 1);
+  useEffect(() => {
     if (expireStatus === "EXPIRED") {
       router.replace(`/payin/[uuid]/expired`, `/payin/${uuid}/expired`);
     } else {
       router.replace(router.asPath);
     }
+  }, [expireStatus]);
+
+  const handleRedirect = () => {
+    setTimerKey((prevKey) => prevKey + 1);
+    router.replace(`/payin/[uuid]/expired`, `/payin/${uuid}/expired`);
   };
 
   const { paidCurrency, address, expiryDate } = apiData;
@@ -74,9 +79,8 @@ function Pay() {
     <Layout>
       {dataLoaded && (
         <PaymentContainer
-          title="Pay with Bitcoin" // displayCurrency field so title matches crypto chosen
-          description="To complete this payment send the amount due to the BTC address
-          provided below."
+          title="Pay with Bitcoin"
+          description="To complete this payment send the amount due to the BTC address provided below."
           isAcceptQuote={false}
           isPayQuote={true}
         >

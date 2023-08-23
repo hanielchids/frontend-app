@@ -136,7 +136,7 @@ function AcceptQuote() {
     }
   };
 
-  const handleSelected = (event: any) => {
+  const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newSelected = event.target.value;
     setSelected(newSelected);
     dispatch(setCurrency(newSelected));

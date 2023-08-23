@@ -2,7 +2,7 @@ import React from "react";
 
 interface CustomSelectProps {
   selected: string;
-  handleSelected: (e: any) => void;
+  handleSelected: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const currencyOptions = [
@@ -12,9 +12,9 @@ const currencyOptions = [
   { value: "LTC", label: "Litecoin" },
 ];
 
-function CustomSelect(props: CustomSelectProps) {
+function CustomSelect({ selected, handleSelected }: CustomSelectProps) {
   return (
-    <div className="w-[416px] h-20 flex-col justify-start items-start gap-1 inline-flex">
+    <div className="w-full md:w-[416px] h-20 flex-col justify-start items-start gap-1 inline-flex">
       <div className="text-bvnk_text-dark text-sm font-medium leading-tight">
         Pay with
       </div>
@@ -22,8 +22,8 @@ function CustomSelect(props: CustomSelectProps) {
       <div className="inline-block relative w-full">
         <select
           name="currency"
-          value={props.selected}
-          onChange={props.handleSelected}
+          value={selected}
+          onChange={handleSelected}
           className="block appearance-none w-full h-14 p-4 bg-white border border-bvnk_gray-20 rounded leading-tight "
         >
           {currencyOptions.map((option, index) => (
