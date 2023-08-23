@@ -1,10 +1,21 @@
+import InfoBlock from "@/components/InfoBlock";
 import Layout from "@/components/Layout";
-import QRBox from "@/components/QRBox";
+import PaymentContainer from "@/components/PaymentContainer";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 function Pay() {
-  const [apiData, setApiData] = useState("");
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [apiData, setApiData] = useState({
+    paidCurrency: {
+      amount: 0,
+      currency: "",
+    },
+    address: {
+      address: "",
+    },
+    expiryDate: null,
+  });
   const [timerKey, setTimerKey] = useState(0);
   const router = useRouter();
   const { uuid } = router.query;
@@ -20,8 +31,13 @@ function Pay() {
         const data = await response.json();
 
         console.log("returned data is: ", data);
-        setExpireStatus(data?.status);
-        setApiData(data);
+
+        if (data) {
+          const { paidCurrency, address, expiryDate } = data;
+          setExpireStatus(data?.status);
+          setApiData({ paidCurrency, address, expiryDate });
+          setDataLoaded(true);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -52,13 +68,30 @@ function Pay() {
     }
   };
 
+  const { paidCurrency, address, expiryDate } = apiData;
+
   return (
     <Layout>
-      <QRBox
-        apiData={apiData}
-        timerKey={timerKey}
-        handleRedirect={handleRedirect}
-      />
+      {dataLoaded && (
+        <PaymentContainer
+          title="Pay with Bitcoin" // displayCurrency field so title matches crypto chosen
+          description="To complete this payment send the amount due to the BTC address
+          provided below."
+          isAcceptQuote={false}
+          isPayQuote={true}
+        >
+          <InfoBlock
+            amount={paidCurrency?.amount}
+            currency={paidCurrency?.currency}
+            address={address?.address}
+            expiryDate={expiryDate}
+            isAcceptQuote={false}
+            isPayQuote={true}
+            timerKey={timerKey}
+            onTimerExpired={handleRedirect}
+          />
+        </PaymentContainer>
+      )}
     </Layout>
   );
 }
