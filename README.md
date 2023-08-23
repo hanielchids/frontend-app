@@ -25,3 +25,17 @@ Project is making use of Next.js, Tailwind, React and Redux with Typescript.
 ### External Libraries
 
 - `qrcode.react` for generating QR codes for the BTC address returned
+
+<div style=" display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  padding: 10px;">
+  <div>1</div>
+  <div>1</div>
+  <div>1</div>
+  <div>1</div>
+  <div>1</div>
+  <div>1</div>
+  <div>1</div>
+  <div>1</div>
+</div>
