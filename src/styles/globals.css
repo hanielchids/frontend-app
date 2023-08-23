@@ -20,6 +20,9 @@
   .quote-container {
     @apply w-[460px] p-[25px] bg-white rounded-[10px] flex-col justify-start items-center gap-[25px] inline-flex;
   }
+  .expired-container {
+    @apply flex justify-center h-[307px] items-center w-[460px] my-5 bg-white rounded-[10px];
+  }
   .p-text {
     @apply text-bvnk_text-gray text-sm font-normal leading-snug;
   }
