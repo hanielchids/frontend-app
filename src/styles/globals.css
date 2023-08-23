@@ -10,7 +10,7 @@
 
 @layer components {
   .button {
-    @apply p-2 text-white text-sm md:text-sm bg-bvnk_blue-light border border-bvnk_blue-light rounded-md 
+    @apply p-2 inline-flex items-center justify-center text-white text-sm md:text-sm bg-bvnk_blue-light border border-bvnk_blue-light rounded-md 
     focus:outline-none focus:ring-2 focus:ring-bvnk_blue-dark
     active:bg-bvnk_blue-dark;
   }

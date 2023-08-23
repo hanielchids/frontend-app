@@ -11,6 +11,7 @@ import { setCurrency } from "@/store/currencySlice";
 
 function AcceptQuote() {
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const [payDataLoaded, setPayDataLoaded] = useState(false);
   const [apiData, setApiData] = useState({
     merchantDisplayName: "",
@@ -115,6 +116,7 @@ function AcceptQuote() {
   };
 
   const handleConfirm = async () => {
+    setButtonLoading(true);
     try {
       const response = await fetch(`/api/confirm_quote`);
       if (!response.ok) {
@@ -127,8 +129,10 @@ function AcceptQuote() {
       } else {
         router.replace(router.asPath);
       }
+      setButtonLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setButtonLoading(false);
     }
   };
 
@@ -174,6 +178,7 @@ function AcceptQuote() {
               currency={paidCurrency?.currency}
               expiryDate={acceptanceExpiryDate}
               isLoading={isLoading}
+              isButtonLoading={buttonLoading}
               isAcceptQuote={true}
               isPayQuote={false}
               timerKey={timerKey}
