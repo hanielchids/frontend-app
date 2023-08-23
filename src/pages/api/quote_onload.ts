@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 const quoteHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const uuid = "a3cafcba-597a-4e55-a43b-189b6624e10b";
+  const uuid = process.env.UUID;
 
   try {
     const details = await fetch(
