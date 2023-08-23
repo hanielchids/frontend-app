@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 const confirmHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const uuid = "afe0a04b-657a-4293-ab7b-70f62ccc3a62";
+  const uuid = process.env.UUID;
 
   try {
     const details = await fetch(

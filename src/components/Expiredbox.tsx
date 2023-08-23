@@ -3,8 +3,7 @@ import React from "react";
 function ExpiredBox() {
   return (
     <div>
-      {/* expired container */}
-      <div className="flex justify-center h-[307px] items-center w-[460px] my-5 bg-white rounded-[10px]">
+      <div className="expired-container">
         <div className="text-center">
           <div className="flex-col justify-center items-center">
             <div className="flex justify-center items-center">
@@ -42,7 +41,6 @@ function ExpiredBox() {
           </div>
         </div>
       </div>
-      {/* expired container */}
     </div>
   );
 }

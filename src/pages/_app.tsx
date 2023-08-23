@@ -1,10 +1,10 @@
 import { Provider } from "react-redux";
-import store from "../store/store";
 import "../styles/globals.css";
+import store from "@/store/store";
 
 interface AppProps {
   Component: React.ElementType;
-  pageProps: any; // You can replace 'any' with a more specific type if needed
+  pageProps: any;
 }
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
