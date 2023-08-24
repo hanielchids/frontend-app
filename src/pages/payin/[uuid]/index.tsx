@@ -161,7 +161,6 @@ function AcceptQuote() {
   };
 
   useEffect(() => {
-    // Simulate loading delay with setTimeout
     dispatch(setLoading());
     const timer = setTimeout(() => {
       dispatch(unsetLoading());
