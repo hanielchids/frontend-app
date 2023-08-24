@@ -4,6 +4,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Open the `next.config.js` and replace the uuid value with your own value.
 
+Copy the `.env.example` file and create a `.env.local` and replace the uuid value with your own value.
+
 Run `npm install` to install packages and dependencies.
 
 First, run the development server:

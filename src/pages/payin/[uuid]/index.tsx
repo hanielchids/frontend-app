@@ -48,8 +48,6 @@ function AcceptQuote() {
         }
         const data = await response.json();
 
-        console.log("returned data is: ", data);
-
         if (data) {
           const {
             merchantDisplayName,
@@ -90,8 +88,6 @@ function AcceptQuote() {
             );
           }
           const data = await response.json();
-
-          console.log("CURRENCY data is: ", data);
 
           if (data) {
             const { paidCurrency, acceptanceExpiryDate } = data;
