@@ -36,7 +36,7 @@ function Pay() {
         }
 
         if (data?.status === "EXPIRED") {
-          router.push(`/payin/${uuid}/expired`);
+          router.push(`/payin/${data?.uuid}/expired`);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
