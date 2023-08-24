@@ -27,7 +27,7 @@ export default function Home() {
 //     console.error("Error fetching data:", error);
 
 //     return {
-//       props: { apiData: null }, // Handle the error case as needed
+//       props: { apiData: null },
 //     };
 //   }
 // };
