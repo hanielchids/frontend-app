@@ -20,7 +20,6 @@ function Pay() {
     expiryDate: null,
   });
   const [timerKey, setTimerKey] = useState(0);
-  const [expireStatus, setExpireStatus] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,14 +29,14 @@ function Pay() {
           throw new Error(`API request failed with status: ${response.status}`);
         }
         const data = await response.json();
-
-        console.log("returned data is: ", data);
-
         if (data) {
           const { paidCurrency, address, expiryDate } = data;
-          setExpireStatus(data?.status);
           setApiData({ paidCurrency, address, expiryDate });
           setDataLoaded(true);
+        }
+
+        if (data?.status === "EXPIRED") {
+          router.push(`/payin/${uuid}/expired`);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -46,27 +45,6 @@ function Pay() {
 
     fetchData();
   }, []);
-
-  useEffect(() => {
-    const preventNavigation = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-
-    window.addEventListener("beforeunload", preventNavigation);
-
-    return () => {
-      window.removeEventListener("beforeunload", preventNavigation);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (expireStatus === "EXPIRED") {
-      router.replace(`/payin/[uuid]/expired`, `/payin/${uuid}/expired`);
-    } else {
-      router.replace(router.asPath);
-    }
-  }, [expireStatus]);
 
   const handleRedirect = () => {
     setTimerKey((prevKey) => prevKey + 1);
