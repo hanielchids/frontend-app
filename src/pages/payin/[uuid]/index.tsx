@@ -57,7 +57,7 @@ function AcceptQuote() {
           } = data;
 
           if (quoteStatus === "ACCEPTED") {
-            router.push(`/payin/${uuid}/pay`);
+            router.push(`/payin/${data?.uuid}/pay`);
           }
 
           setApiData({ merchantDisplayName, displayCurrency, reference });
@@ -65,7 +65,10 @@ function AcceptQuote() {
         }
 
         if (data?.status === "EXPIRED") {
-          router.replace(`/payin/[uuid]/expired`, `/payin/${uuid}/expired`);
+          router.replace(
+            `/payin/[uuid]/expired`,
+            `/payin/${data?.uuid}/expired`
+          );
         }
       } catch (error) {
         console.error("Error fetching data:", error);
