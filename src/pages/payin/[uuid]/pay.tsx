@@ -57,8 +57,8 @@ function Pay() {
     <Layout>
       {dataLoaded && (
         <PaymentContainer
-          title="Pay with Bitcoin"
-          description="To complete this payment send the amount due to the BTC address provided below."
+          title={`Pay with ${paidCurrency?.currency}`}
+          description={`To complete this payment send the amount due to the ${paidCurrency.currency} address provided below.`}
           isAcceptQuote={false}
           isPayQuote={true}
         >

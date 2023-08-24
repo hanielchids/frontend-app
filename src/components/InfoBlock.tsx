@@ -110,7 +110,7 @@ function InfoBlock({
 
         {isPayQuote && (
           <div className="rounded-3xl justify-end items-center gap-2 flex">
-            <CopyButton textToCopy={`${amount} ${currency}`} />
+            <CopyButton textToCopy={`${amount}`} />
           </div>
         )}
       </div>
@@ -201,7 +201,7 @@ function InfoBlock({
       {isPayQuote && (
         <>
           <div className="self-stretch justify-start items-center gap-4 inline-flex">
-            <div className="table-text">BTC address</div>
+            <div className="table-text">{currency} address</div>
             <div className="table-text-r">
               <TruncateText text={address} maxLength={15} />
             </div>
