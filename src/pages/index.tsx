@@ -12,22 +12,22 @@ export default function Home() {
   );
 }
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   try {
-//     const response = await fetch("/api/quote_onload");
-//     if (!response.ok) {
-//       throw new Error(`API request failed with status: ${response.status}`);
-//     }
-//     const data = await response.json();
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const response = await fetch("/api/quote_onload");
+    if (!response.ok) {
+      throw new Error(`API request failed with status: ${response.status}`);
+    }
+    const data = await response.json();
 
-//     return {
-//       props: { apiData: data },
-//     };
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
+    return {
+      props: { apiData: data },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error);
 
-//     return {
-//       props: { apiData: null }, // Handle the error case as needed
-//     };
-//   }
-// };
+    return {
+      props: { apiData: null },
+    };
+  }
+};
