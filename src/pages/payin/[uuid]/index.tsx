@@ -31,10 +31,10 @@ function AcceptQuote() {
   const selectedCurrency = useSelector(
     (state: RootState) => state.currency.selectedCurrency
   );
+
   const dispatch = useDispatch();
   const router = useRouter();
   const [selected, setSelected] = useState("");
-
   const [timerKey, setTimerKey] = useState(0);
   const isLoading = useSelector((state: any) => state.isLoading);
   const { uuid } = router.query;
@@ -51,10 +51,23 @@ function AcceptQuote() {
         console.log("returned data is: ", data);
 
         if (data) {
-          const { merchantDisplayName, displayCurrency, reference } = data;
+          const {
+            merchantDisplayName,
+            displayCurrency,
+            reference,
+            quoteStatus,
+          } = data;
+
+          if (quoteStatus === "ACCEPTED") {
+            router.push(`/payin/${uuid}/pay`);
+          }
 
           setApiData({ merchantDisplayName, displayCurrency, reference });
           setDataLoaded(true);
+        }
+
+        if (data?.status === "EXPIRED") {
+          router.replace(`/payin/[uuid]/expired`, `/payin/${uuid}/expired`);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
